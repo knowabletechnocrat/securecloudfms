@@ -1,0 +1,14 @@
+services:
+  seaweedfs:
+    image: chrislusf/seaweedfs:latest
+    container_name: secure-drive-seaweedfs
+    command: server -dir=/data -s3 -ip=seaweedfs -s3.port=8333
+    restart: unless-stopped
+    ports:
+      - "8333:8333"
+      - "9333:9333"
+      - "8080:8080"
+    volumes:
+      - seaweed_data:/data
+volumes:
+  seaweed_data:

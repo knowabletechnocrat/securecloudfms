@@ -1,0 +1,1 @@
+import 'dotenv/config';import app,{initialize} from './app.js';const port=Number(process.env.PORT||5000);try{await initialize();app.listen(port,()=>console.log(`API listening at http://localhost:${port}`));}catch(e){console.error('Startup failed. Check MySQL and SeaweedFS.',e);process.exit(1);}
