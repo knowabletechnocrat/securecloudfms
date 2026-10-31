@@ -137,6 +137,27 @@ export default function App() {
     }
   }
 
+  
+async function deleteFile(selectedFile) {
+  const confirmed = window.confirm(
+    `Are you sure you want to delete "${selectedFile.filename}"?`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    await call(`/files/${selectedFile.id}`, {
+      method: 'DELETE'
+    });
+
+    await refresh();
+    setMessage('File deleted successfully.');
+  } catch (error) {
+    setMessage(error.message);
+  }
+}
+
+
   async function logout() {
     try {
       await call('/auth/logout', { method: 'POST' });
@@ -300,6 +321,15 @@ export default function App() {
             <button onClick={() => download(item)}>
               Download
             </button>
+            
+<button
+  className="secondary"
+  type="button"
+  onClick={() => deleteFile(item)}
+>
+  Delete
+</button>
+
           </article>
         ))}
       </section>
